@@ -1,7 +1,7 @@
 import time
 
 from selenium.webdriver.common.keys import Keys
-from OKXE.locators.loginLocator import *
+from locators.loginLocator import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -26,7 +26,7 @@ class LoginPage:
     def click_icon_gmail(self):
         print('Click icon gmail')
         wait = WebDriverWait(self.driver, 30)
-        click_icongmail =  wait.until(EC.element_to_be_clickable((By.XPATH, get_icon_gmail_xpath())))
+        click_icongmail =  wait.until(EC.element_to_be_clickable((By.ID, get_icon_gmail_id())))
         click_icongmail.click()
 
     def click_icon_apple(self):

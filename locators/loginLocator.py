@@ -17,8 +17,8 @@ def get_button_enter_login_xpath():
 def get_icon_facebook_xpath():
     return "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[1]"
 
-def get_icon_gmail_xpath():
-    return "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]"
+def get_icon_gmail_id():
+    return "passwordNext"
 
 def get_icon_apple_xpath():
     return "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[3]"

@@ -1,6 +1,11 @@
-def get_url_web():
+def get_url_web_okxe():
     return "https://okxe.vn/"
 
+def get_url_web_facebook():
+    return "https://facebook.com/"
+
+def get_url_web_gmail():
+    return "https://gmail.com/"
 
 def get_info_login():
     url = "https://stage.okxe.vn/"

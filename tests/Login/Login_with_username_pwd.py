@@ -1,7 +1,8 @@
 import pytest
 import unittest
 import time
-from utils.infoLogin import get_url_web
+from selenium import webdriver
+from utils.infoLogin import get_url_web_okxe
 from pages.Login_with_username_pwd import Login_with_username_pw
 from pages.Logout import LogoutPage
 from config.envConfig import EnvConfig
@@ -126,6 +127,7 @@ class LoginTest(unittest.TestCase):
         self.login_event(username="0932241574", pwd="@Aa246357")
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
+        time.sleep(500)
         if text == "nhut le":
             assert True
         else:

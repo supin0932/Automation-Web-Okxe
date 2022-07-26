@@ -1,16 +1,16 @@
 import pytest
 import unittest
 import time
-from OKXE.utils.infoLogin import get_url_web
-from OKXE.pages.Login_with_username_pwd import Login_with_username_pw
-from OKXE.pages.Logout import LogoutPage
-from OKXE.config.envConfig import EnvConfig
-from OKXE.utils.driversManages import *
+from utils.infoLogin import *
+from pages.Login_with_username_pwd import Login_with_username_pw
+from pages.Logout import LogoutPage
+from config.envConfig import EnvConfig
+from utils.driversManages import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from OKXE.pages.Login_with_link import *
-
+from pages.Login_with_link import *
+from pages.Login_with_link import *
 
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
 class LoginTest(unittest.TestCase):
@@ -23,8 +23,14 @@ class LoginTest(unittest.TestCase):
             print("No param browser", ex)
             self.driver = chrome_driver_init()
 
-        self.url = get_url_web()
-        self.driver.get(self.url)
+        self.url_okxe = get_url_web_okxe()
+        self.driver.get(self.url_okxe)
+        self.window_st1 = self.driver.window_handles[0]
+        self.driver.execute_script("window.open('https://facebook.com/','secondtab');")
+        self.window_st2 = self.driver.window_handles[1]
+        self.driver.execute_script("window.open('https://gmail.com/','thirsttab');")
+        self.window_st3 = self.driver.window_handles[2]
+
         self.login_obj = Login_with_username_pw(self.driver)
         self.login_obj1 = LoginPage(self.driver)
 
@@ -35,8 +41,7 @@ class LoginTest(unittest.TestCase):
 
 
     def tearDown(self):
-        ""
-        # self.driver.close()
+        self.driver.quit()
 
     def login_event(self):
         try:
@@ -49,7 +54,7 @@ class LoginTest(unittest.TestCase):
 
 
 
-    def test_login_with_account_facebook_numberphone_veryfied(self):
+    def test_login_with_account_facebook_unlogin(self):
         """
 
         Login with facebook account
@@ -57,6 +62,7 @@ class LoginTest(unittest.TestCase):
         Expected : Login unsuccessfully
 
         """
+        self.driver.switch_to.window(self.window_st1)
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
@@ -67,7 +73,7 @@ class LoginTest(unittest.TestCase):
                 login_page = handle
 
         self.driver.switch_to.window(login_page)
-
+        time.sleep(2)
         self.login_obj1.enter_username_facebook(username='0932241574')
         time.sleep(1)
         self.login_obj1.enter_password_facebook(pwd='Nhut1176')
@@ -81,52 +87,39 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
-    # def test_login_with_account_facebook_numberphone_unverify(self):
-    #     """
-    #
-    #     Login with facebook account
-    #     Number phone unverify
-    #
-    #     """
-    #     login_page = str
-    #     self.login_event()
-    #     main_page = self.driver.current_window_handle
-    #     print(self.driver.current_url)
-    #     self.login_obj.click_icon_facebook()
-    #
-    #     for handle in self.driver.window_handles:
-    #         if handle != main_page:
-    #             login_page = handle
-    #
-    #     self.driver.switch_to.window(login_page)
-    #
-    #     self.login_obj.enter_username_facebook(username='mbjzcxbeje_1655970496@tfbnw.net')
-    #     time.sleep(1)
-    #     self.login_obj.enter_password_facebook(pwd='dfglkdfjg45gdflkgjfd')
-    #     time.sleep(1)
-    #     self.login_obj.click_login_facebook()
-    #     # self.login_obj.click_link_facebook()
-    #     try:
-    #         self.login_obj.click_link_facebook()
-    #     except:
-    #         print("Account linked")
-    #     finally:
-    #         self.driver.switch_to.window(main_page)
-    #     self.login_obj.click_veryfi_numberphone()
-    #     self.login_obj.enter_numberphone(number='0339957452')
-    #     self.login_obj.click_continue_button()
-    #     self.login_obj.enter_otp(n1='6', n2='9', n3='6', n4='9', n5='6', n6='9')
-    #     time.sleep(2)
-    #     get_url = self.driver.current_url
-    #     print(get_url)
-    #     if get_url == "https://www.okxe.vn/":
-    #         self.driver.quit()
-    #         assert True
-    #     else:
-    #         self.driver.quit()
-    #         assert False
+    def test_login_with_account_facebook_unlogined(self):
+        """
 
-    def test_login_with_account_google_numberphone_verify(self):
+        Login with facebook account
+        Number phone verified
+        Expected : Login unsuccessfully
+
+        """
+        self.driver.switch_to.window(self.window_st2)
+        self.login_obj1.enter_username_facebook(username='0932241574')
+        self.login_obj1.enter_password_facebook(pwd='Nhut1176')
+        time.sleep(3)
+        # click login facebook
+        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button").click()
+        time.sleep(5)
+        # #click avatar fb
+        # self.driver.find_element_by_css_selector(".j83agx80 > .oajrlxb2 > .q9uorilb g").click()
+        # time.sleep(5)
+        # #click button logout
+        # self.driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]").click()
+        # time.sleep(1000)
+        self.driver.switch_to.window(self.window_st1)
+        self.login_event()
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[1]").click()
+        self.login_obj.click_icon_account()
+        text = self.login_obj.get_username_account()
+        if text == "Lê Minh Nhựt":
+            assert True
+        else:
+            assert False
+
+
+    def test_login_with_account_google_numberphone_unlogin(self):
         """
 
         Login with google account
@@ -134,11 +127,11 @@ class LoginTest(unittest.TestCase):
         Expected : Login unsuccessfully
 
         """
+        self.driver.switch_to.window(self.window_st1)
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
-        print(self.driver.current_url)
-        self.login_obj1.click_icon_gmail()
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]").click() #click icon gmail
 
         for handle in self.driver.window_handles:
             if handle != main_page:
@@ -158,43 +151,47 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
+    def test_login_with_account_google_numberphone_logined(self):
+        """
 
-    # def test_login_with_account_google_numberphone_unverify(self):
-    #     """
-    #
-    #     Login with google account
-    #     Number phone unverified
-    #
-    #     """
-    #     login_page = str
-    #     self.login_event()
-    #     main_page = self.driver.current_window_handle
-    #     print(self.driver.current_url)
-    #     self.login_obj.click_icon_gmail()
-    #
-    #     for handle in self.driver.window_handles:
-    #         if handle != main_page:
-    #             login_page = handle
-    #
-    #     self.driver.switch_to.window(login_page)
-    #     self.login_obj.enter_username_gmail(username="m.nhutle@okxe.vn")
-    #     self.login_obj.click_continue_pwd_button()
-    #     self.login_obj.enter_password_gmail(pwd="Nhut1176")
-    #     self.login_obj.click_continue_login_gm_button()
-    #     self.driver.switch_to.window(main_page)
-    #     self.login_obj.click_veryfi_numberphone()
-    #     self.login_obj.enter_numberphone(number='0339957452')
-    #     self.login_obj.click_continue_button()
-    #     self.login_obj.enter_otp(n1='6', n2='9', n3='6', n4='9', n5='6', n6='9')
-    #     time.sleep(2)
-    #     get_url = self.driver.current_url
-    #     print(get_url)
-    #     if get_url == "https://www.okxe.vn/":
-    #         self.driver.quit()
-    #         assert True
-    #     else:
-    #         self.driver.quit()
-    #         assert False
+        Login with google account
+        Number phone verified
+        Expected : Login unsuccessfully
+
+        """
+        self.driver.switch_to.window(self.window_st3)
+        self.driver.find_element(By.CSS_SELECTOR, ".button--mobile-before-hero-only").click()  # click button login gmail
+
+        self.login_obj1.enter_username_gmail(username='m.nhutle@okxe.vn')
+        self.login_obj1.click_continue_login_gm_button()
+        self.login_obj1.enter_password_gmail(pwd='Nhut1176')
+        # time.sleep(3000)
+        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div").click() #click button next pwd
+        self.driver.switch_to.window(self.window_st1)
+        main_page = self.driver.current_window_handle
+        self.login_event()
+        time.sleep(1)
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]").click() #click icon gmail
+        login_page = str
+
+        for handle in self.driver.window_handles:
+            if handle != main_page:
+                login_page = handle
+
+        self.driver.switch_to.window(login_page)
+        # chọn account gmail
+        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/div/ul/li[1]/div").click()
+
+        self.driver.switch_to.window(main_page)
+        time.sleep(10)
+        self.login_obj.click_icon_account()
+        text = self.login_obj.get_username_account()
+        if text == "Lê Minh Nhựt":
+            assert True
+        else:
+                assert False
+
+
 
     # def test_login_with_account_apple_numberphone_verify(self):
     #     """
@@ -203,24 +200,23 @@ class LoginTest(unittest.TestCase):
     #     Number phone verified
     #
     #     """
+    #     self.driver.switch_to.window(self.window_st1)
     #     login_page = str
     #     self.login_event()
     #     main_page = self.driver.current_window_handle
-    #     print(self.driver.current_url)
-    #     self.login_obj.click_icon_apple()
-    #
+    #     self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[3]").click()
     #     for handle in self.driver.window_handles:
     #         if handle != main_page:
     #             login_page = handle
     #
     #     self.driver.switch_to.window(login_page)
-    #     self.login_obj.enter_usr_apple(username="alo")
-    #     self.login_obj.click_login_apple()
+    #     self.login_obj1.enter_usr_apple(username="m.nhutle@okxe.vn")
+    #     self.login_obj1.click_login_apple()
     #     self.driver.find_element_by_css_selector(".shared-icon").click()
-    #     self.login_obj.enter_pwd_apple(pwd="alo")
+    #     self.login_obj1.enter_pwd_apple(pwd="@Aa246357")
     #     self.driver.find_element_by_css_selector(".shared-icon").click()
-    #     self.login_obj.click_login_apple()
-    #     time.sleep(2)
+    #     self.login_obj1.click_login_apple()
+    #     time.sleep(5000)
     #     get_url = self.driver.current_url
     #     print(get_url)
     #     if get_url == "https://www.okxe.vn/":
@@ -229,45 +225,8 @@ class LoginTest(unittest.TestCase):
     #     else:
     #         self.driver.quit()
     #         assert False
-    #
-    # def test_login_with_account_apple_numberphone_unverify(self):
-    #     """
-    #
-    #     Login with apple account
-    #     Number phone unverified
-    #
-    #     """
-    #     login_page = str
-    #     self.login_event()
-    #     main_page = self.driver.current_window_handle
-    #     print(self.driver.current_url)
-    #     self.login_obj.click_icon_apple()
-    #
-    #     for handle in self.driver.window_handles:
-    #         if handle != main_page:
-    #             login_page = handle
-    #
-    #     self.driver.switch_to.window(login_page)
-    #     self.login_obj.enter_usr_apple(username="alo")
-    #     self.login_obj.click_login_apple()
-    #     self.driver.find_element_by_css_selector(".shared-icon").click()
-    #     self.login_obj.enter_pwd_apple(pwd="alo")
-    #     self.driver.find_element_by_css_selector(".shared-icon").click()
-    #     self.login_obj.click_login_apple()
-    #     self.driver.switch_to.window(main_page)
-    #     self.login_obj.click_veryfi_numberphone()
-    #     self.login_obj.enter_numberphone(number='0339957452')
-    #     self.login_obj.click_continue_button()
-    #     self.login_obj.enter_otp(n1='6', n2='9', n3='6', n4='9', n5='6', n6='9')
-    #     time.sleep(2)
-    #     get_url = self.driver.current_url
-    #     print(get_url)
-    #     if get_url == "https://www.okxe.vn/":
-    #         self.driver.quit()
-    #         assert True
-    #     else:
-    #         self.driver.quit()
-    #         assert False
+
+
 
 
 if __name__ == "__main__":
