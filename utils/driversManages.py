@@ -16,7 +16,7 @@ def get_driver(browser):
 
 def chrome_driver_init():
     opt = chromeOpt()
-    driver = webdriver.Chrome("/Users/okxe/Downloads/chromedriver", options=opt)
+    driver = webdriver.Chrome("/Users/okxe/Desktop/Automation-Web-Okxe/driver/ChromeDriver/chromedriver", options=opt)
 
     driver.implicitly_wait(30)
     driver.maximize_window()
