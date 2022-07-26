@@ -1,0 +1,8 @@
+No param browser 'LoginTest' object has no attribute 'login'
+Open Chrome browser
+Click login
+Enter username
+Enter password
+Enter login
+Login successfully
+https://www.okxe.vn/login
