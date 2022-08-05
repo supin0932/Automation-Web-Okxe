@@ -63,6 +63,8 @@ class LoginTest(unittest.TestCase):
 
         """
         self.driver.switch_to.window(self.window_st1)
+        time.sleep(2)
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
@@ -109,6 +111,8 @@ class LoginTest(unittest.TestCase):
         # self.driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]").click()
         # time.sleep(1000)
         self.driver.switch_to.window(self.window_st1)
+        time.sleep(2)
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         self.login_event()
         self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[1]").click()
         self.login_obj.click_icon_account()
@@ -128,6 +132,8 @@ class LoginTest(unittest.TestCase):
 
         """
         self.driver.switch_to.window(self.window_st1)
+        time.sleep(2)
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
@@ -169,6 +175,8 @@ class LoginTest(unittest.TestCase):
         self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div").click() #click button next pwd
         self.driver.switch_to.window(self.window_st1)
         main_page = self.driver.current_window_handle
+        time.sleep(2)
+        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         self.login_event()
         time.sleep(1)
         self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]").click() #click icon gmail

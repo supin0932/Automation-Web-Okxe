@@ -22,7 +22,7 @@ class LoginTest(unittest.TestCase):
             print("No param browser", ex)
             self.driver = chrome_driver_init()
 
-        self.url = get_url_web()
+        self.url = get_url_web_okxe()
         self.driver.get(self.url)
         self.login_obj = Login_with_username_pw(self.driver)
 
@@ -37,6 +37,7 @@ class LoginTest(unittest.TestCase):
 
     def login_event(self, username, pwd):
         try:
+            self.driver.find_element_by_css_selector("#app > div.v-dialog__content.v-dialog__content--active > div > button").click()
             self.login_obj.click_button_login()
 
             # Wait load page
@@ -124,15 +125,13 @@ class LoginTest(unittest.TestCase):
         Password : True
         Expected : Login successfully
         """
-        self.login_event(username="0932241574", pwd="@Aa246357")
+        self.login_event(username="0932241574", pwd="@Nhut1176")
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
-        time.sleep(500)
         if text == "nhut le":
             assert True
         else:
             assert False
-
 
 if __name__ == "__main__":
     unittest.main()

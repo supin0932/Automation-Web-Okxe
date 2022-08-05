@@ -102,7 +102,7 @@ def get_register_button_xpath():
     return "//div[@id='app']/div[3]/div/div/div[3]/div/div[3]/form/div/div[2]/button"
 
 def get_forget_pwd_button_xpath():
-    return "//div[@id='app']/div[3]/div/div/div[3]/div/div/form/div/div[3]/div/div[2]/a"
+    return "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[1]/form/div/div[3]/div/div[2]/a"
 
 def get_tab_pwd_css():
     return ".tab-password"
