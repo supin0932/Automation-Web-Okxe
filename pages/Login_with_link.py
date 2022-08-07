@@ -149,7 +149,7 @@ class LoginPage:
     def enter_password_gmail(self, pwd):
         print("Enter password gmail")
         wait = WebDriverWait(self.driver, 30)
-        enter_pwd_gm = wait.until(EC.element_to_be_clickable((By.XPATH, get_pwd_gmail_xpath())))
+        enter_pwd_gm = wait.until(EC.element_to_be_clickable((By.ID, "password")))
         enter_pwd_gm.clear()
         enter_pwd_gm.send_keys(pwd)
 

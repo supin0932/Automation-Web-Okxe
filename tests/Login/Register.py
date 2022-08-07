@@ -13,7 +13,7 @@ from pages.Register_account import *
 
 # @pytest.mark.usefixtures("driver-class")
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
-class LoginTest2(unittest.TestCase):
+class RegisterTest(unittest.TestCase):
 
     def setUp(self):
         try:

@@ -12,7 +12,7 @@ from pages.Forget_id_and_pwd import *
 
 # @pytest.mark.usefixtures("driver-class")
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
-class LoginTest3(unittest.TestCase):
+class ForgetpasswordTest(unittest.TestCase):
 
     def setUp(self):
         try:

@@ -1,18 +1,17 @@
 import pytest
 import unittest
 import time
-from selenium import webdriver
 from utils.infoLogin import get_url_web_okxe
 from pages.Login_with_username_pwd import Login_with_username_pw
-from pages.Logout import LogoutPage
 from config.envConfig import EnvConfig
 from utils.driversManages import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
-class LoginTest(unittest.TestCase):
+class Login_with_account_Test(unittest.TestCase):
 
     def setUp(self):
 
@@ -37,7 +36,9 @@ class LoginTest(unittest.TestCase):
 
     def login_event(self, username, pwd):
         try:
-            self.driver.find_element_by_css_selector("#app > div.v-dialog__content.v-dialog__content--active > div > button").click()
+            wait = WebDriverWait(self.driver, 30)
+            click_login = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#app > div.v-dialog__content.v-dialog__content--active > div > button")))
+            click_login.click()
             self.login_obj.click_button_login()
 
             # Wait load page
@@ -52,8 +53,13 @@ class LoginTest(unittest.TestCase):
             print("Login unsuccessfully", err)
 
 
-    def test_login_with_pwd_uncorrect(self):
+    def test_login_with_usr_is_true_pwd_is_false(self):
         """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
         Username : True
         Password : False
         Expected : Login unsuccessfully
@@ -65,8 +71,13 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
-    def test_login_with_username_uncorrect(self):
+    def test_login_with_usr_is_false_pwd_is_true(self):
         """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
         Username : False
         Password : True
         Expected : Login unsuccessfully
@@ -78,8 +89,13 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
-    def test_login_with_acc_and_pwd_emtry(self):
+    def test_login_with_usr_is_empty_and_pwd_is_emtry(self):
         """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
         Username : Empty
         Password : Empty
         Expected : Login unsuccessfully
@@ -93,11 +109,15 @@ class LoginTest(unittest.TestCase):
 
     def test_login_with_username_emtry(self):
         """
-        Username : Empty
-        Password : True
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
+        Username : True
+        Password : Empty
         Expected : Login unsuccessfully
         """
-
         self.login_event(username="", pwd="@Aa246357")
         get_url = self.driver.find_element(By.CSS_SELECTOR, ".error-message").text
         if get_url == "Thông tin đăng nhập và mật khẩu không được bỏ trống":
@@ -105,13 +125,17 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
-    def test_login_with_pwd_emtry(self):
+    def test_login_with_usr_is_true_pwd_is_emtry(self):
         """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
         Username : True
         Password : Empty
         Expected : Login unsuccessfully
         """
-
         self.login_event(username="0932949905", pwd="")
         get_url = self.driver.find_element(By.CSS_SELECTOR, ".error-message").text
         if get_url == "Thông tin đăng nhập và mật khẩu không được bỏ trống":
@@ -119,8 +143,14 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
-    def test_login_with_acc_and_pwd_correct(self):
+    def test_login_with_usr_is_true_pwd_is_true(self):
         """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get username
+        Step 4 : Logout account
+        Step 5 : Compare with expected result
+        ***********************
         Username : True
         Password : True
         Expected : Login successfully
@@ -133,5 +163,60 @@ class LoginTest(unittest.TestCase):
         else:
             assert False
 
+    def test_login_with_usr_is_false_pw_is_false(self):
+        """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
+        Username : False
+        Password : False
+        Expected : Login unsuccessfully
+        """
+        self.login_event(username="093294abc", pwd="12344556")
+        get_url = self.driver.find_element(By.CSS_SELECTOR, ".error-message").text
+        if get_url == "Tên đăng nhập không tồn tại.":
+            assert True
+        else:
+            assert False
+
+    def test_login_with_usr_is_false_pw_is_empty(self):
+        """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
+        Username : False
+        Password : Empty
+        Expected : Login unsuccessfully
+        """
+        self.login_event(username="093294abc", pwd="")
+        get_url = self.driver.find_element(By.CSS_SELECTOR, ".error-message").text
+        if get_url == "Thông tin đăng nhập và mật khẩu không được bỏ trống":
+            assert True
+        else:
+            assert False
+
+    def test_login_with_usr_is_empty_pw_is_false(self):
+        """
+        Step 1 : Open website OKXE
+        Step 2 : Login account
+        Step 3 : Get text warning
+        Step 4 : Compare with expected result
+        ***********************
+        Username : Empty
+        Password : False
+        Expected : Login unsuccessfully
+        """
+        self.login_event(username="", pwd="1234567")
+        get_url = self.driver.find_element(By.CSS_SELECTOR, ".error-message").text
+        if get_url == "Thông tin đăng nhập và mật khẩu không được bỏ trống":
+            assert True
+        else:
+            assert False
+
 if __name__ == "__main__":
     unittest.main()
+

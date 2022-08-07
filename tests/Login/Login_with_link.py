@@ -1,19 +1,15 @@
+import time
+
 import pytest
 import unittest
-import time
 from utils.infoLogin import *
 from pages.Login_with_username_pwd import Login_with_username_pw
-from pages.Logout import LogoutPage
 from config.envConfig import EnvConfig
 from utils.driversManages import *
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from pages.Login_with_link import *
 from pages.Login_with_link import *
 
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
-class LoginTest(unittest.TestCase):
+class Login_with_link_Test(unittest.TestCase):
 
     def setUp(self):
 
@@ -45,16 +41,18 @@ class LoginTest(unittest.TestCase):
 
     def login_event(self):
         try:
+            wait = WebDriverWait(self.driver, 30)
+            click_login = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#app > div.v-dialog__content.v-dialog__content--active > div > button")))
+            click_login.click()
             self.login_obj.click_button_login()
             # Wait load page
             time.sleep(1)
-
         except Exception as err:
             print("Login unsuccessfully", err)
 
 
 
-    def test_login_with_account_facebook_unlogin(self):
+    def test_login_with_account_facebook_not_logined(self):
         """
 
         Login with facebook account
@@ -64,7 +62,6 @@ class LoginTest(unittest.TestCase):
         """
         self.driver.switch_to.window(self.window_st1)
         time.sleep(2)
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
@@ -76,20 +73,20 @@ class LoginTest(unittest.TestCase):
 
         self.driver.switch_to.window(login_page)
         time.sleep(2)
-        self.login_obj1.enter_username_facebook(username='0932241574')
+        self.login_obj1.enter_username_facebook(username='m.nhutle@okxe.vn')
         time.sleep(1)
-        self.login_obj1.enter_password_facebook(pwd='Nhut1176')
+        self.login_obj1.enter_password_facebook(pwd='@Aa246357')
         time.sleep(1)
         self.login_obj1.click_login_facebook()
         self.driver.switch_to.window(main_page)
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
-        if text == "Lê Minh Nhựt":
+        if text == "Lê Nhựt":
             assert True
         else:
             assert False
 
-    def test_login_with_account_facebook_unlogined(self):
+    def test_login_with_account_facebook_logined(self):
         """
 
         Login with facebook account
@@ -98,32 +95,27 @@ class LoginTest(unittest.TestCase):
 
         """
         self.driver.switch_to.window(self.window_st2)
-        self.login_obj1.enter_username_facebook(username='0932241574')
-        self.login_obj1.enter_password_facebook(pwd='Nhut1176')
         time.sleep(3)
-        # click login facebook
-        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button").click()
+        self.login_obj1.enter_username_facebook(username='m.nhutle@okxe.vn') #bug
+        self.login_obj1.enter_password_facebook(pwd='@Aa246357')
+        time.sleep(3)
+        click = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button")))
+        click.click()
         time.sleep(5)
-        # #click avatar fb
-        # self.driver.find_element_by_css_selector(".j83agx80 > .oajrlxb2 > .q9uorilb g").click()
-        # time.sleep(5)
-        # #click button logout
-        # self.driver.find_element_by_xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[2]/div/div[5]").click()
-        # time.sleep(1000)
         self.driver.switch_to.window(self.window_st1)
         time.sleep(2)
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         self.login_event()
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[1]").click()
+        click = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[1]")))
+        click.click()
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
-        if text == "Lê Minh Nhựt":
+        if text == "Lê Nhựt":
             assert True
         else:
             assert False
 
 
-    def test_login_with_account_google_numberphone_unlogin(self):
+    def test_login_with_account_google_numberphone_not_logined(self):
         """
 
         Login with google account
@@ -133,25 +125,28 @@ class LoginTest(unittest.TestCase):
         """
         self.driver.switch_to.window(self.window_st1)
         time.sleep(2)
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         login_page = str
         self.login_event()
         main_page = self.driver.current_window_handle
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]").click() #click icon gmail
+        click = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]")))
+        click.click()
 
         for handle in self.driver.window_handles:
             if handle != main_page:
                 login_page = handle
 
         self.driver.switch_to.window(login_page)
-        self.login_obj1.enter_username_gmail(username="m.nhutle@okxe.vn")
-        self.login_obj1.click_continue_pwd_button()
-        self.login_obj1.enter_password_gmail(pwd="Nhut1176")
-        self.login_obj1.click_continue_pwd_button()
+        self.driver.find_element(By.XPATH, "//input[@type='email']").send_keys("m.nhutle@okxe.vn")
+        self.driver.find_element(By.XPATH, "//input[@type='email']").send_keys(Keys.ENTER)
+        self.driver.find_element(By.ID, "password").send_keys("Nhut1176")
+        self.driver.find_element(By.ID, "password").send_keys(Keys.ENTER)
+        self.driver.save_screenshot('/Users/okxe/Downloads/test.png')
         self.driver.switch_to.window(main_page)
-        time.sleep(10)
+        time.sleep(5)
         self.login_obj.click_icon_account()
+        time.sleep(2)
         text = self.login_obj.get_username_account()
+        self.driver.save_screenshot('/Users/okxe/Downloads/test1.png')
         if text == "Lê Minh Nhựt":
             assert True
         else:
@@ -166,20 +161,22 @@ class LoginTest(unittest.TestCase):
 
         """
         self.driver.switch_to.window(self.window_st3)
-        self.driver.find_element(By.CSS_SELECTOR, ".button--mobile-before-hero-only").click()  # click button login gmail
 
         self.login_obj1.enter_username_gmail(username='m.nhutle@okxe.vn')
-        self.login_obj1.click_continue_login_gm_button()
-        self.login_obj1.enter_password_gmail(pwd='Nhut1176')
-        # time.sleep(3000)
-        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div/div[1]/div").click() #click button next pwd
+        self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot.png')
+        time.sleep(5)
+        try:
+            self.driver.find_element_by_id("identifierId").send_keys(Keys.ENTER)
+        except:
+            pass
+        self.driver.find_element(By.ID, "password").send_keys("Nhut1176")
+        self.driver.find_element(By.ID, "password").send_keys(Keys.ENTER)
+
         self.driver.switch_to.window(self.window_st1)
-        main_page = self.driver.current_window_handle
-        time.sleep(2)
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[41]/div/button").click()
         self.login_event()
-        time.sleep(1)
-        self.driver.find_element_by_xpath("/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]").click() #click icon gmail
+        main_page = self.driver.current_window_handle
+        click = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]")))
+        click.click()
         login_page = str
 
         for handle in self.driver.window_handles:
@@ -187,13 +184,13 @@ class LoginTest(unittest.TestCase):
                 login_page = handle
 
         self.driver.switch_to.window(login_page)
-        # chọn account gmail
-        self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/div/ul/li[1]/div").click()
+
+        self.driver.find_element(By.XPATH, "//*[contains(text(),'Lê Minh Nhựt')]").click()
 
         self.driver.switch_to.window(main_page)
-        time.sleep(10)
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
+
         if text == "Lê Minh Nhựt":
             assert True
         else:
