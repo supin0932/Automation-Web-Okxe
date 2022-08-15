@@ -60,8 +60,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : True
-        Password : False
+        Data : + Username : True
+               + Password : False
         Expected : Login unsuccessfully
         """
         self.login_event(username='0932241574', pwd='1111111111')
@@ -78,8 +78,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : False
-        Password : True
+        Data : + Username : False
+               + Password : True
         Expected : Login unsuccessfully
         """
         self.login_event(username='1111111111', pwd='@Aa246357')
@@ -89,15 +89,15 @@ class Login_with_account_Test(unittest.TestCase):
         else:
             assert False
 
-    def test_login_with_usr_is_empty_and_pwd_is_emtry(self):
+    def test_login_with_usr_is_empty_pwd_is_emtry(self):
         """
         Step 1 : Open website OKXE
         Step 2 : Login account
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : Empty
-        Password : Empty
+        Data : + Username : Empty
+               + Password : Empty
         Expected : Login unsuccessfully
         """
         self.login_event(username="", pwd="")
@@ -114,8 +114,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : True
-        Password : Empty
+        Data : + Username : True
+               + Password : Empty
         Expected : Login unsuccessfully
         """
         self.login_event(username="", pwd="@Aa246357")
@@ -132,8 +132,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : True
-        Password : Empty
+        Data : + Username : True
+               + Password : Empty
         Expected : Login unsuccessfully
         """
         self.login_event(username="0932949905", pwd="")
@@ -151,11 +151,11 @@ class Login_with_account_Test(unittest.TestCase):
         Step 4 : Logout account
         Step 5 : Compare with expected result
         ***********************
-        Username : True
-        Password : True
+        Data : + Username : True
+               + Password : True
         Expected : Login successfully
         """
-        self.login_event(username="0932241574", pwd="@Nhut1176")
+        self.login_event(username="0932241574", pwd="@Aa246357")
         self.login_obj.click_icon_account()
         text = self.login_obj.get_username_account()
         if text == "nhut le":
@@ -170,8 +170,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : False
-        Password : False
+        Data : + Username : False
+               + Password : False
         Expected : Login unsuccessfully
         """
         self.login_event(username="093294abc", pwd="12344556")
@@ -188,8 +188,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : False
-        Password : Empty
+        Data : + Username : False
+               + Password : Empty
         Expected : Login unsuccessfully
         """
         self.login_event(username="093294abc", pwd="")
@@ -206,8 +206,8 @@ class Login_with_account_Test(unittest.TestCase):
         Step 3 : Get text warning
         Step 4 : Compare with expected result
         ***********************
-        Username : Empty
-        Password : False
+        Data : + Username : Empty
+               + Password : False
         Expected : Login unsuccessfully
         """
         self.login_event(username="", pwd="1234567")

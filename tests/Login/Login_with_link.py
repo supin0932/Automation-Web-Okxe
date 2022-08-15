@@ -1,5 +1,3 @@
-import time
-
 import pytest
 import unittest
 from utils.infoLogin import *
@@ -52,13 +50,20 @@ class Login_with_link_Test(unittest.TestCase):
 
 
 
-    def test_login_with_account_facebook_not_logined(self):
+    def test_login_with_fb_with_account_unlogined(self):
         """
-
-        Login with facebook account
-        Number phone verified
-        Expected : Login unsuccessfully
-
+        Step 1 : Open web OKXE
+        Step 2 : Click button login
+        Step 3 : Click button link with facebook
+        Step 4 : Login account facebook
+        Step 5 : Get info account
+        Step 7 : Logout account okxe
+        Step 8 : Open web Facebook
+        Step 9 : Logout account facebook
+        Step 10 : Verify info account
+        *************************
+        Data : + Account facebook : Correct
+        Expected Result : Login successfull
         """
         self.driver.switch_to.window(self.window_st1)
         time.sleep(2)
@@ -88,11 +93,19 @@ class Login_with_link_Test(unittest.TestCase):
 
     def test_login_with_account_facebook_logined(self):
         """
-
-        Login with facebook account
-        Number phone verified
-        Expected : Login unsuccessfully
-
+        Step 1 : Open web Facebook
+        Step 2 : Login account facebook
+        Step 3 : Open app OKXE
+        Step 4 : Click button login
+        Step 5 : Click button link with facebook
+        Step 6 : Select account facebook
+        Step 7 : Get info account
+        Step 8 : Logout account okxe
+        Step 9 : Logout account facebook
+        Step 10 : Verify info account
+        *************************
+        Data : + Account facebook : Correct
+        Expected Result : Login successfull
         """
         self.driver.switch_to.window(self.window_st2)
         time.sleep(3)
@@ -115,13 +128,20 @@ class Login_with_link_Test(unittest.TestCase):
             assert False
 
 
-    def test_login_with_account_google_numberphone_not_logined(self):
+    def test_login_with_gmail_with_account_unlogined(self):
         """
-
-        Login with google account
-        Number phone verified
-        Expected : Login unsuccessfully
-
+        Step 1 : Open web OKXE
+        Step 2 : Click button login
+        Step 3 : Click button link with gmail
+        Step 4 : Login account gmail
+        Step 5 : Get info account
+        Step 7 : Logout account okxe
+        Step 8 : Open app Gmail
+        Step 9 : Logout account gmail
+        Step 10 : Verify info account
+        *************************
+        Data : + Account gmail : Correct
+        Expected Result : Login successfull
         """
         self.driver.switch_to.window(self.window_st1)
         time.sleep(2)
@@ -139,6 +159,7 @@ class Login_with_link_Test(unittest.TestCase):
         self.driver.find_element(By.XPATH, "//input[@type='email']").send_keys("m.nhutle@okxe.vn")
         self.driver.find_element(By.XPATH, "//input[@type='email']").send_keys(Keys.ENTER)
         self.driver.find_element(By.ID, "password").send_keys("Nhut1176")
+        time.sleep(5)
         self.driver.find_element(By.ID, "password").send_keys(Keys.ENTER)
         self.driver.save_screenshot('/Users/okxe/Downloads/test.png')
         self.driver.switch_to.window(main_page)
@@ -147,21 +168,29 @@ class Login_with_link_Test(unittest.TestCase):
         time.sleep(2)
         text = self.login_obj.get_username_account()
         self.driver.save_screenshot('/Users/okxe/Downloads/test1.png')
-        if text == "Lê Minh Nhựt":
+        if text == "nhut le":
             assert True
         else:
             assert False
 
-    def test_login_with_account_google_numberphone_logined(self):
+    def test_login_with_gmail_with_account_logined(self):
         """
-
-        Login with google account
-        Number phone verified
-        Expected : Login unsuccessfully
-
+        Step 1 : Open web Gmail
+        Step 2 : Login account gmail
+        Step 3 : Open app OKXE
+        Step 4 : Click button login
+        Step 5 : Click button link with gmail
+        Step 6 : Select account gmail
+        Step 7 : Get info account
+        Step 8 : Logout account okxe
+        Step 9 : Logout account gmail
+        Step 10 : Verify info account
+        *************************
+        Data : + Account gmail : Correct
+        Expected Result : Login successfull
         """
         self.driver.switch_to.window(self.window_st3)
-
+        time.sleep(3)
         self.login_obj1.enter_username_gmail(username='m.nhutle@okxe.vn')
         self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot.png')
         time.sleep(5)
@@ -178,7 +207,7 @@ class Login_with_link_Test(unittest.TestCase):
         click = WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div[3]/div/div[1]/div[3]/div/div[2]/div[1]/button[2]")))
         click.click()
         login_page = str
-
+        self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot_11.png')
         for handle in self.driver.window_handles:
             if handle != main_page:
                 login_page = handle
@@ -186,12 +215,16 @@ class Login_with_link_Test(unittest.TestCase):
         self.driver.switch_to.window(login_page)
 
         self.driver.find_element(By.XPATH, "//*[contains(text(),'Lê Minh Nhựt')]").click()
-
+        self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot_12.png')
         self.driver.switch_to.window(main_page)
+        time.sleep(6)
+        self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot_14.png')
         self.login_obj.click_icon_account()
+        self.driver.save_screenshot('/Users/okxe/Downloads/screen_shot_13.png')
+        time.sleep(5)
         text = self.login_obj.get_username_account()
 
-        if text == "Lê Minh Nhựt":
+        if text == "nhut le":
             assert True
         else:
                 assert False

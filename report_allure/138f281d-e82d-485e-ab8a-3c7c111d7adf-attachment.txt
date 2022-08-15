@@ -1,8 +1,0 @@
-No param browser 'LoginTest1' object has no attribute 'login'
-Open Chrome browser
-Click login
-Click icon facebook
-Enter username facebook
-Enter password facebook
-Click login facebook
-https://www.okxe.vn/
