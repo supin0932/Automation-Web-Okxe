@@ -2,7 +2,7 @@ def get_url_web_okxe():
     return "https://okxe.vn/"
 
 def get_url_web_okxe_stage():
-    return "https://stage.okxe.vn/"
+    return "https://www-green.okxe.vn/"
 
 def get_url_web_facebook():
     return "https://facebook.com/"

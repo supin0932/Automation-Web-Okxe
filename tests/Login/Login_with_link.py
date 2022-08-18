@@ -1,10 +1,11 @@
 import pytest
 import unittest
-from utils.infoLogin import *
 from pages.Login_with_username_pwd import Login_with_username_pw
 from config.envConfig import EnvConfig
-from utils.driversManages import *
 from pages.Login_with_link import *
+from utils.driversManages import get_driver, chrome_driver_init
+from utils.infoLogin import get_url_web_okxe
+
 
 @pytest.mark.usefixmarkmarktures("driver_Testusefixmarkmarkclass")
 class Login_with_link_Test(unittest.TestCase):

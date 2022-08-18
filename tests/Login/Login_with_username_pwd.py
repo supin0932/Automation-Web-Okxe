@@ -29,7 +29,7 @@ class Login_with_account_Test(unittest.TestCase):
         self.user_name = envConfig.infoLogin.user_name
         self.pwd = envConfig.infoLogin.pwd
         self.pin = envConfig.infoLogin.pin
-
+        self.driver.implicitly_wait(30)
 
     def tearDown(self):
         self.driver.close()
