@@ -1,0 +1,6 @@
+No param browser 'Login_with_account_Test' object has no attribute 'login'
+Open Chrome browser
+Click login
+Enter username
+Enter password
+Enter login
