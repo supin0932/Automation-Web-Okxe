@@ -16,12 +16,12 @@ def get_driver(browser):
 
 def chrome_driver_init():
     opt = chromeOpt()
-    opt.headless = True
-    opt.add_argument("--start-maximized")
+    # opt.headless = True
+    # opt.add_argument("--start-maximized")
     driver = webdriver.Chrome("/Users/nhutle/Downloads/Automation-Web-Okxe/driver/ChromeDriver/chromedriver", options=opt)
 
     # driver.implicitly_wait(30)
-    # driver.maximize_window()
+    driver.maximize_window()
     # driver.set_window_size(1440,905)
     print('Open Chrome browser')
     return driver

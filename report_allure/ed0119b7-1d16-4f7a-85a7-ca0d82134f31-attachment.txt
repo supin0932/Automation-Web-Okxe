@@ -1,9 +1,0 @@
-No param browser 'Login_with_link_Test' object has no attribute 'login'
-Open Chrome browser
-Click login
-Click icon facebook
-Enter username facebook
-Enter password facebook
-Click login facebook
-Click icon account
-Get username
